@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+	<node name="youbot_dashboard" pkg="youbot_dashboard" type="youbot_dashboard" output="screen">
+		<param name="device_path" type="str" value="/dev/dashboard"/>
+		<param name="pub_rate" type="double" value="10.0"/>
+		<param name="meas_number" type="int" value="10"/>
+	</node>
+</launch>
+
+
