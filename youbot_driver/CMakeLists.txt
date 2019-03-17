@@ -19,7 +19,7 @@ ADD_DEFINITIONS(-DUSE_ROS_LOGGING)
 file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/${PROJECT_NAME})
 
 catkin_package(
-  INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include soem/src
+  INCLUDE_DIRS include
   LIBRARIES YouBotDriver soem
 #  CATKIN_DEPENDS luh_youbot_msgs opencv2 roscpp tf
 #  DEPENDS system_lib
@@ -55,12 +55,11 @@ ENDIF (Boost_FOUND)
 #include(UseDoxygen)
 
 ########### Simple Open EtherCAT Master Library ###########
-add_subdirectory(soem)
+#add_subdirectory(soem)
 
 INCLUDE_DIRECTORIES(
+    include
 	${catkin_INCLUDE_DIRS}
-	${PROJECT_SOURCE_DIR}
-	${PROJECT_SOURCE_DIR}/soem/src
 )
 
 ########### CppUnit and tests ###########
@@ -75,84 +74,83 @@ ENDIF (CppUnit_FOUND)
 ########### youBot display example application ###########
 add_subdirectory(display)
 
-
 SET(YOUBOT_DRIVER_SRC
-  ${PROJECT_SOURCE_DIR}/youbot/EthercatMaster.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/EthercatMasterWithThread.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/EthercatMasterWithoutThread.cpp
-  ${PROJECT_SOURCE_DIR}/generic/Logger.cpp
-  ${PROJECT_SOURCE_DIR}/generic/ConfigFile.cpp
-  ${PROJECT_SOURCE_DIR}/generic/PidController.cpp
-  ${PROJECT_SOURCE_DIR}/generic-joint/JointData.cpp
-  ${PROJECT_SOURCE_DIR}/generic-joint/JointTrajectory.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/YouBotJoint.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/JointLimitMonitor.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/YouBotBase.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/YouBotManipulator.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/YouBotGripper.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/YouBotGripperBar.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/YouBotGripperParameter.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/DataTrace.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/GripperDataTrace.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/YouBotJointParameter.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/YouBotJointParameterReadOnly.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/YouBotJointParameterPasswordProtected.cpp
-  ${PROJECT_SOURCE_DIR}/youbot/JointTrajectoryController.cpp
-  ${PROJECT_SOURCE_DIR}/base-kinematic/FourSwedishWheelOmniBaseKinematic.cpp
-  ${PROJECT_SOURCE_DIR}/base-kinematic/FourSwedishWheelOmniBaseKinematicConfiguration.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/EthercatMaster.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/EthercatMasterWithThread.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/EthercatMasterWithoutThread.cpp
+  ${PROJECT_SOURCE_DIR}/src/generic/Logger.cpp
+  ${PROJECT_SOURCE_DIR}/src/generic/ConfigFile.cpp
+  ${PROJECT_SOURCE_DIR}/src/generic/PidController.cpp
+  ${PROJECT_SOURCE_DIR}/src/generic-joint/JointData.cpp
+  ${PROJECT_SOURCE_DIR}/src/generic-joint/JointTrajectory.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/YouBotJoint.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/JointLimitMonitor.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/YouBotBase.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/YouBotManipulator.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/YouBotGripper.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/YouBotGripperBar.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/YouBotGripperParameter.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/DataTrace.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/GripperDataTrace.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/YouBotJointParameter.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/YouBotJointParameterReadOnly.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/YouBotJointParameterPasswordProtected.cpp
+  ${PROJECT_SOURCE_DIR}/src/youbot/JointTrajectoryController.cpp
+  ${PROJECT_SOURCE_DIR}/src/base-kinematic/FourSwedishWheelOmniBaseKinematic.cpp
+  ${PROJECT_SOURCE_DIR}/src/base-kinematic/FourSwedishWheelOmniBaseKinematicConfiguration.cpp
 )
 
 
 SET(YOUBOT_DRIVER_HEADERS
-  youbot/EthercatMaster.hpp
-  youbot/EthercatMasterInterface.hpp
-  youbot/EthercatMasterWithThread.hpp
-  youbot/EthercatMasterWithoutThread.hpp
-  youbot/YouBotGripper.hpp
-  youbot/YouBotGripperBar.hpp
-  youbot/YouBotGripperParameter.hpp
-  youbot/YouBotBase.hpp
-  youbot/YouBotManipulator.hpp
-  youbot/YouBotJoint.hpp
-  youbot/JointLimitMonitor.hpp
-  youbot/YouBotJointParameterReadOnly.hpp
-  youbot/YouBotJointParameterPasswordProtected.hpp
-  youbot/YouBotJointParameter.hpp
-  youbot/YouBotSlaveMailboxMsg.hpp
-  youbot/YouBotSlaveMsg.hpp
-  youbot/ProtocolDefinitions.hpp
-  youbot/YouBotJointStorage.hpp
-  youbot/DataTrace.hpp
-  youbot/GripperDataTrace.hpp
-  youbot/JointTrajectoryController.hpp
-  base-kinematic/FourSwedishWheelOmniBaseKinematic.hpp
-  base-kinematic/FourSwedishWheelOmniBaseKinematicConfiguration.hpp
-  base-kinematic/WheeledBaseKinematic.hpp
-  generic/Exceptions.hpp
-  generic/Logger.hpp
-  generic/Time.hpp
-  generic/Units.hpp
-  generic/ConfigFile.hpp
-  generic/PidController.hpp
-  generic/dataobjectlockfree/DataObjectLockFree.hpp
-  generic/dataobjectlockfree/target.hpp
-  generic/dataobjectlockfree/os/oro_arch.h
-  generic/dataobjectlockfree/os/oro_gcc/oro_arch.h
-  generic/dataobjectlockfree/os/oro_i386/oro_arch.h
-  generic/dataobjectlockfree/os/oro_msvc/oro_arch.h
-  generic/dataobjectlockfree//os/oro_powerpc/oro_arch.h  
-  generic/dataobjectlockfree/os/oro_powerpc/oro_atomic.h  
-  generic/dataobjectlockfree/os/oro_powerpc/oro_system.h
-  generic/dataobjectlockfree/os/oro_x86_64/oro_arch.h
-  generic-gripper/Gripper.hpp
-  generic-gripper/GripperData.hpp
-  generic-gripper/GripperParameter.hpp
-  generic-joint/Joint.hpp
-  generic-joint/JointData.hpp
-  generic-joint/JointTrajectory.hpp
-  generic-joint/JointParameter.hpp
-  one-dof-gripper/OneDOFGripper.hpp
-  one-dof-gripper/OneDOFGripperData.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/EthercatMaster.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/EthercatMasterInterface.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/EthercatMasterWithThread.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/EthercatMasterWithoutThread.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/YouBotGripper.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/YouBotGripperBar.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/YouBotGripperParameter.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/YouBotBase.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/YouBotManipulator.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/YouBotJoint.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/JointLimitMonitor.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/YouBotJointParameterReadOnly.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/YouBotJointParameterPasswordProtected.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/YouBotJointParameter.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/YouBotSlaveMailboxMsg.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/YouBotSlaveMsg.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/ProtocolDefinitions.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/YouBotJointStorage.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/DataTrace.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/GripperDataTrace.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/youbot/JointTrajectoryController.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/base-kinematic/FourSwedishWheelOmniBaseKinematic.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/base-kinematic/FourSwedishWheelOmniBaseKinematicConfiguration.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/base-kinematic/WheeledBaseKinematic.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/Exceptions.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/Logger.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/Time.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/Units.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/ConfigFile.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/PidController.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/dataobjectlockfree/DataObjectLockFree.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/dataobjectlockfree/target.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/dataobjectlockfree/os/oro_arch.h
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/dataobjectlockfree/os/oro_gcc/oro_arch.h
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/dataobjectlockfree/os/oro_i386/oro_arch.h
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/dataobjectlockfree/os/oro_msvc/oro_arch.h
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/dataobjectlockfree//os/oro_powerpc/oro_arch.h  
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/dataobjectlockfree/os/oro_powerpc/oro_atomic.h  
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/dataobjectlockfree/os/oro_powerpc/oro_system.h
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic/dataobjectlockfree/os/oro_x86_64/oro_arch.h
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic-gripper/Gripper.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic-gripper/GripperData.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic-gripper/GripperParameter.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic-joint/Joint.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic-joint/JointData.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic-joint/JointTrajectory.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/generic-joint/JointParameter.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/one-dof-gripper/OneDOFGripper.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/one-dof-gripper/OneDOFGripperData.hpp
 )
 
 SET(YOUBOT_DRIVER_CONFIG
@@ -162,6 +160,18 @@ SET(YOUBOT_DRIVER_CONFIG
 )
 
 ADD_LIBRARY(YouBotDriver ${YOUBOT_DRIVER_SRC})
+
+ADD_LIBRARY(soem 
+  ${PROJECT_SOURCE_DIR}/src/soem/src/ethercatbase.c 
+  ${PROJECT_SOURCE_DIR}/src/soem/src/ethercatcoe.c 
+  ${PROJECT_SOURCE_DIR}/src/soem/src/ethercatconfig.c 
+  ${PROJECT_SOURCE_DIR}/src/soem/src/ethercatfoe.c 
+  ${PROJECT_SOURCE_DIR}/src/soem/src/ethercatsoe.c 
+  ${PROJECT_SOURCE_DIR}/src/soem/src/ethercatmain.c 
+  ${PROJECT_SOURCE_DIR}/src/soem/src/ethercatprint.c 
+  ${PROJECT_SOURCE_DIR}/src/soem/src/nicdrv.c 
+  ${PROJECT_SOURCE_DIR}/src/soem/src/ethercatdc.c
+)
 
 TARGET_LINK_LIBRARIES(YouBotDriver soem)
 ADD_LIBRARY(YouBotDriverShared SHARED "")
